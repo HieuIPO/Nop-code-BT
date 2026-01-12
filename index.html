@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Authentication</title>
+
+  <!-- Google Fonts: Inter (phong cách SaaS hiện đại) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!--
+    Bố cục 2 cột (desktop):
+    - Trái (55–60%): ảnh núi non lúc bình minh (cover, không méo)
+    - Phải (40–45%): nền trung tính + card đăng nhập màu trắng
+
+    Mobile: chuyển sang 1 cột.
+  -->
+
+  <main class="shell">
+    <aside class="hero" aria-label="Ảnh nền phong cảnh">
+      <!--
+        Ảnh dùng qua URL để đúng yêu cầu "không thêm file".
+        Bạn có thể thay bằng ảnh khác (miễn là ảnh núi/bình minh).
+      -->
+      <div class="hero__overlay" aria-hidden="true"></div>
+    </aside>
+
+    <section class="panel" aria-label="Authentication">
+      <div class="panel__inner">
+        <section class="card" aria-label="Authentication card">
+          <!-- Tab chuyển giữa Login / Register (Forgot là link ở dưới) -->
+          <nav class="tabs" aria-label="Chuyển trang">
+            <button class="tab" type="button" data-go="login" aria-current="page">Đăng nhập</button>
+            <button class="tab" type="button" data-go="register">Đăng ký</button>
+          </nav>
+
+          <!-- Thông báo validate / demo submit -->
+          <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
+          <!-- LOGIN -->
+          <section class="page is-active" data-page="login" aria-label="Trang đăng nhập">
+            <header class="card__header">
+              <h1 class="card__title">Chào mừng trở lại</h1>
+              <p class="card__subtitle">Vui lòng đăng nhập để tiếp tục</p>
+            </header>
+
+            <form id="loginForm" class="form" novalidate>
+              <div class="field">
+                <label class="field__label" for="loginEmail">Email</label>
+                <input
+                  id="loginEmail"
+                  name="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  required
+                />
+                <p class="field__hint" data-hint="loginEmail"></p>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="loginPassword">Mật khẩu</label>
+                <input
+                  id="loginPassword"
+                  name="password"
+                  type="password"
+                  placeholder="••••••••"
+                  autocomplete="current-password"
+                  minlength="6"
+                  required
+                />
+                <p class="field__hint" data-hint="loginPassword"></p>
+              </div>
+
+              <button class="btn" type="submit">Đăng nhập</button>
+
+              <div class="links">
+                <a class="link" href="#" data-go="forgot">Quên mật khẩu?</a>
+              </div>
+            </form>
+          </section>
+
+          <!-- REGISTER -->
+          <section class="page" data-page="register" aria-label="Trang đăng ký">
+            <header class="card__header">
+              <h1 class="card__title">Tạo tài khoản</h1>
+              <p class="card__subtitle">Tạo tài khoản mới để bắt đầu</p>
+            </header>
+
+            <form id="registerForm" class="form" novalidate>
+              <div class="field">
+                <label class="field__label" for="registerName">Họ và tên</label>
+                <input
+                  id="registerName"
+                  name="name"
+                  type="text"
+                  placeholder="VD: Nguyen Van A"
+                  autocomplete="name"
+                  required
+                />
+                <p class="field__hint" data-hint="registerName"></p>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="registerEmail">Email</label>
+                <input
+                  id="registerEmail"
+                  name="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  required
+                />
+                <p class="field__hint" data-hint="registerEmail"></p>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="registerPassword">Mật khẩu</label>
+                <input
+                  id="registerPassword"
+                  name="password"
+                  type="password"
+                  placeholder="Tối thiểu 6 ký tự"
+                  autocomplete="new-password"
+                  minlength="6"
+                  required
+                />
+                <p class="field__hint" data-hint="registerPassword"></p>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="registerConfirm">Nhập lại mật khẩu</label>
+                <input
+                  id="registerConfirm"
+                  name="confirm"
+                  type="password"
+                  placeholder="Nhập lại mật khẩu"
+                  autocomplete="new-password"
+                  minlength="6"
+                  required
+                />
+                <p class="field__hint" data-hint="registerConfirm"></p>
+              </div>
+
+              <button class="btn" type="submit">Đăng ký</button>
+
+              <div class="links">
+                <a class="link" href="#" data-go="login">Đã có tài khoản? Đăng nhập</a>
+                <a class="link" href="#" data-go="forgot">Quên mật khẩu?</a>
+              </div>
+            </form>
+          </section>
+
+          <!-- FORGOT PASSWORD -->
+          <section class="page" data-page="forgot" aria-label="Trang quên mật khẩu">
+            <header class="card__header">
+              <h1 class="card__title">Quên mật khẩu</h1>
+              <p class="card__subtitle">Nhập email để nhận hướng dẫn đặt lại (demo)</p>
+            </header>
+
+            <form id="forgotForm" class="form" novalidate>
+              <div class="field">
+                <label class="field__label" for="forgotEmail">Email</label>
+                <input
+                  id="forgotEmail"
+                  name="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  required
+                />
+                <p class="field__hint" data-hint="forgotEmail"></p>
+              </div>
+
+              <button class="btn" type="submit">Gửi yêu cầu</button>
+
+              <div class="links">
+                <a class="link" href="#" data-go="login">Quay lại đăng nhập</a>
+                <a class="link" href="#" data-go="register">Tạo tài khoản</a>
+              </div>
+            </form>
+          </section>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

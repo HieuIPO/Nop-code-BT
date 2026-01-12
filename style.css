@@ -1,0 +1,308 @@
+/*
+  style.css (Login SaaS 2 cột)
+  - Trái: ảnh cover toàn chiều cao
+  - Phải: nền trung tính + card trắng (bo góc, shadow nhẹ)
+  - Input: border tinh tế, focus nhẹ
+  - Button: xanh dương hiện đại, hover đổi màu
+  - Responsive: mobile chuyển 1 cột
+*/
+
+:root {
+  --panel-bg: #f5f2ee; /* be nhẹ */
+  --card-bg: #ffffff;
+
+  --text: #0f172a; /* slate-900 */
+  --muted: #64748b; /* slate-500 */
+
+  --border: #e2e8f0; /* slate-200 */
+  --border-focus: rgba(37, 99, 235, 0.45);
+  --ring: rgba(37, 99, 235, 0.18);
+
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+
+  --danger: #e11d48;
+  --success: #16a34a;
+
+  --radius: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: #ffffff;
+}
+
+/* ===== Layout 2 cột ===== */
+.shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.35fr 1fr; /* ~57% / 43% */
+}
+
+/* Cột trái: ảnh cover */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  background-image:
+    url("https://cdnv2.tgdd.vn/mwg-static/common/News/1587941/hinh-nen-meme-flash-zootopia%20%281%29.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+/* Overlay nhẹ để ảnh trông "cao cấp" hơn */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.05) 60%, rgba(0, 0, 0, 0)),
+    radial-gradient(900px 600px at 20% 20%, rgba(255, 197, 136, 0.22), transparent 55%);
+}
+
+/* Cột phải: nền trung tính + căn giữa card */
+.panel {
+  background: var(--panel-bg);
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+}
+
+.panel__inner {
+  width: min(460px, 100%);
+}
+
+/* ===== Card ===== */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow:
+    0 14px 40px rgba(15, 23, 42, 0.08),
+    0 2px 10px rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+/* Tabs (Login / Register) */
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.tab {
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #f8fafc;
+  color: #334155;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.tab:hover {
+  transform: translateY(-1px);
+  border-color: rgba(37, 99, 235, 0.28);
+}
+
+.tab[aria-current="page"] {
+  background: rgba(37, 99, 235, 0.10);
+  border-color: rgba(37, 99, 235, 0.28);
+  color: #0f172a;
+}
+
+.card__header {
+  margin-bottom: 14px;
+}
+
+.card__title {
+  margin: 0 0 6px;
+  font-size: 26px;
+  letter-spacing: -0.2px;
+}
+
+.card__subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Mỗi "page" là một section, chỉ hiện page active */
+.page {
+  display: none;
+  animation: fadeUp 220ms ease;
+}
+
+.page.is-active {
+  display: block;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.notice {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #f8fafc;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.notice.is-danger {
+  border-color: rgba(225, 29, 72, 0.28);
+  background: rgba(225, 29, 72, 0.06);
+}
+
+.notice.is-success {
+  border-color: rgba(22, 163, 74, 0.25);
+  background: rgba(22, 163, 74, 0.07);
+}
+
+/* ===== Form ===== */
+.form {
+  margin-top: 16px;
+  display: grid;
+  gap: 14px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field__label {
+  font-size: 13px;
+  color: #334155; /* slate-700 */
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  outline: none;
+  font-size: 14px;
+  transition: box-shadow 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+input::placeholder {
+  color: #94a3b8; /* slate-400 */
+}
+
+/* Focus animation nhẹ */
+input:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 5px var(--ring);
+  transform: translateY(-1px);
+}
+
+.field__hint {
+  margin: 0;
+  min-height: 16px;
+  font-size: 12px;
+  color: var(--danger);
+}
+
+.field.is-invalid input {
+  border-color: rgba(225, 29, 72, 0.45);
+  box-shadow: 0 0 0 5px rgba(225, 29, 72, 0.10);
+}
+
+.btn {
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  background: var(--primary);
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(37, 99, 235, 0.20);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+}
+
+
+.link {
+  color: #334155;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: color 160ms ease;
+}
+
+.link:hover {
+  color: var(--primary);
+}
+
+/* ===== Responsive: mobile chuyển 1 cột ===== */
+@media (max-width: 920px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    min-height: 42vh;
+  }
+
+  .panel {
+    place-items: start;
+  }
+
+  .panel__inner {
+    width: min(520px, 100%);
+  }
+}
+
+@media (max-width: 420px) {
+  .card {
+    padding: 22px;
+  }
+
+  .tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .links {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+}
